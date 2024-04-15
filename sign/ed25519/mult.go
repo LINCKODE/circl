@@ -5,9 +5,9 @@ import (
 	"encoding/binary"
 	"math/bits"
 
-	"github.com/cloudflare/circl/internal/conv"
-	"github.com/cloudflare/circl/math"
-	fp "github.com/cloudflare/circl/math/fp25519"
+	"github.com/linckode/circl/internal/conv"
+	"github.com/linckode/circl/math"
+	fp "github.com/linckode/circl/math/fp25519"
 )
 
 var paramD = fp.Elt{

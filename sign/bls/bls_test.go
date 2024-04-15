@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/cloudflare/circl/internal/test"
-	"github.com/cloudflare/circl/sign/bls"
+	"github.com/linckode/circl/internal/test"
+	"github.com/linckode/circl/sign/bls"
 )
 
 func TestBls(t *testing.T) {

@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/cloudflare/circl/group"
-	"github.com/cloudflare/circl/internal/test"
+	"github.com/linckode/circl/group"
+	"github.com/linckode/circl/internal/test"
 )
 
 func TestHashToElement(t *testing.T) {

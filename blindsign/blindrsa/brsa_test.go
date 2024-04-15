@@ -15,7 +15,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cloudflare/circl/internal/test"
+	"github.com/linckode/circl/internal/test"
 )
 
 func loadPrivateKey() (*rsa.PrivateKey, error) {

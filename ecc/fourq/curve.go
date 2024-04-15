@@ -1,9 +1,11 @@
 package fourq
 
 import (
+	"encoding/hex"
+	"fmt"
 	"math/big"
 
-	"github.com/cloudflare/circl/internal/conv"
+	"github.com/linckode/circl/internal/conv"
 )
 
 // Size of scalars used for point multiplication.
@@ -28,6 +30,18 @@ func Params() *CurveParams {
 	params.G.X = genX
 	params.G.Y = genY
 	return &params
+}
+
+func (P *Point) PrintPoint() {
+
+	var buf [32]byte
+
+	P.X.toBytes(buf[:])
+	fmt.Printf("X: %s\n", hex.EncodeToString(buf[:]))
+
+	P.Y.toBytes(buf[:])
+	fmt.Printf("Y: %s\n", hex.EncodeToString(buf[:]))
+
 }
 
 // IsOnCurve reports whether the given P=(x,y) lies on the curve.

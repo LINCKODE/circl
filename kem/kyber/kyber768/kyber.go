@@ -13,9 +13,9 @@ import (
 	"io"
 
 	cryptoRand "crypto/rand"
-	"github.com/cloudflare/circl/internal/sha3"
-	"github.com/cloudflare/circl/kem"
-	cpapke "github.com/cloudflare/circl/pke/kyber/kyber768"
+	"github.com/linckode/circl/internal/sha3"
+	"github.com/linckode/circl/kem"
+	cpapke "github.com/linckode/circl/pke/kyber/kyber768"
 )
 
 const (

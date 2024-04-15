@@ -6,9 +6,9 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/cloudflare/circl/internal/conv"
-	"github.com/cloudflare/circl/internal/test"
-	"github.com/cloudflare/circl/math/mlsbset"
+	"github.com/linckode/circl/internal/conv"
+	"github.com/linckode/circl/internal/test"
+	"github.com/linckode/circl/math/mlsbset"
 )
 
 func TestExp(t *testing.T) {

@@ -8,8 +8,8 @@ import (
 	"crypto/subtle"
 	"math/big"
 
-	"github.com/cloudflare/circl/kem"
-	"github.com/cloudflare/circl/xof"
+	"github.com/linckode/circl/kem"
+	"github.com/linckode/circl/xof"
 )
 
 type cPublicKey struct {
