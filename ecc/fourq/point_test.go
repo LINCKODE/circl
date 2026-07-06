@@ -293,3 +293,15 @@ func BenchmarkPoint(b *testing.B) {
 		}
 	})
 }
+
+func TestIsWeak(t *testing.T) {
+	var id, g Point
+	id.SetIdentity()
+	if !id.IsWeak() {
+		t.Error("identity must be flagged weak")
+	}
+	g.SetGenerator()
+	if g.IsWeak() {
+		t.Error("generator (order r) must NOT be flagged weak")
+	}
+}

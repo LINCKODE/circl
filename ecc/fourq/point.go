@@ -270,6 +270,13 @@ func (P *Point) Unmarshal(in *[Size]byte) bool {
 	return true
 }
 
+func (P *Point) IsWeak() bool {
+	var _P pointR1
+	P.toR1(&_P)
+	_P.ClearCofactor()
+	return _P.X.isZero()
+}
+
 func (P *pointR1) IsOnCurve() bool {
 	t0, lhs, rhs := &Fq{}, &Fq{}, &Fq{}
 
