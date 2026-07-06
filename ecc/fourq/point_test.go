@@ -2,6 +2,7 @@ package fourq
 
 import (
 	"crypto/rand"
+	"encoding/binary"
 	"encoding/hex"
 	"math/big"
 	"testing"
@@ -292,4 +293,55 @@ func BenchmarkPoint(b *testing.B) {
 			P.ScalarMult(&k, &R)
 		}
 	})
+}
+
+func TestIsWeak(t *testing.T) {
+	var id, g Point
+	id.SetIdentity()
+	if !id.IsWeak() {
+		t.Error("identity must be flagged weak")
+	}
+	g.SetGenerator()
+	if g.IsWeak() {
+		t.Error("generator (order r) must NOT be flagged weak")
+	}
+}
+
+func TestIsWeak_LowOrderVectors(t *testing.T) {
+	weak := []struct {
+		name  string
+		limbs [4]uint64
+	}{
+		{"identity (0,1) order 1", [4]uint64{1, 0, 0, 0}},
+		{"NULL_ID (i,0) order 4", [4]uint64{0, 0, 0, 0}},
+		{"(-i,0) order 4", [4]uint64{0, 0, 0, 0x8000000000000000}},
+		{"(0,-1) order 2", [4]uint64{0xFFFFFFFFFFFFFFFE, 0x7FFFFFFFFFFFFFFF, 0, 0}},
+	}
+	for _, w := range weak {
+		var b [Size]byte
+		for i := 0; i < 4; i++ {
+			binary.LittleEndian.PutUint64(b[i*8:], w.limbs[i])
+		}
+		var P Point
+		// identity/NULL_ID may not round-trip through Unmarshal; construct as needed.
+		if !P.Unmarshal(&b) {
+			t.Fatalf("%s: failed to decode", w.name)
+		}
+		if !P.IsWeak() {
+			t.Errorf("%s: must be flagged weak", w.name)
+		}
+	}
+}
+
+func TestIsWeak_NoFalsePositive(t *testing.T) {
+	const testTimes = 1 << 12
+	var k [Size]byte
+	for i := 0; i < testTimes; i++ {
+		_, _ = rand.Read(k[:])
+		var P Point
+		P.ScalarBaseMult(&k) // order r by construction
+		if P.IsWeak() {
+			t.Fatalf("false positive on valid key: %x", k)
+		}
+	}
 }
